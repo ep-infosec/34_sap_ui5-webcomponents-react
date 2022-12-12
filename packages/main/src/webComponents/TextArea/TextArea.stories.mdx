@@ -1,0 +1,40 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ArgsTableWithNote } from '@docs/ArgsTableWithNote';
+import { TextArea } from './index';
+import { ValueState } from '../../enums/ValueState';
+import { DocsHeader } from '@docs/DocsHeader';
+import { Footer } from '@docs/Footer';
+import Description from './TextAreaDescription.md';
+
+<Meta
+  title="Inputs / TextArea"
+  component={TextArea}
+  argTypes={{
+    valueStateMessage: { control: { disable: true } }
+  }}
+  args={{
+    valueState: ValueState.None
+  }}
+/>
+
+<DocsHeader />
+
+<br />
+
+## Example
+
+<Canvas>
+  <Story name="Default">
+    {(args) => {
+      return <TextArea {...args} />;
+    }}
+  </Story>
+</Canvas>
+
+## Properties
+
+<ArgsTableWithNote story="." />
+
+<Description />
+
+<Footer />

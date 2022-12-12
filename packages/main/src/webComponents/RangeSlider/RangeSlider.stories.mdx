@@ -1,0 +1,36 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ArgsTableWithNote } from '@docs/ArgsTableWithNote';
+import { RangeSlider } from './index';
+import { DocsHeader } from '@docs/DocsHeader';
+import { Footer } from '@docs/Footer';
+import Description from './RangeSliderDescription.md';
+
+<Meta
+  title="Inputs / RangeSlider"
+  component={RangeSlider}
+  argTypes={{
+    children: { control: { disable: true } }
+  }}
+/>
+
+<DocsHeader since="0.13.0" />
+
+<br />
+
+## Example
+
+<Canvas>
+  <Story name="Default">
+    {(args) => {
+      return <RangeSlider {...args} />;
+    }}
+  </Story>
+</Canvas>
+
+## Properties
+
+<ArgsTableWithNote story="." />
+
+<Description />
+
+<Footer />

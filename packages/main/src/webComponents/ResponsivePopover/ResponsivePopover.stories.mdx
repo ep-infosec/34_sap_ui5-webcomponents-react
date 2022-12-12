@@ -1,0 +1,226 @@
+import { DocsHeader } from '@docs/DocsHeader';
+import { Footer } from '@docs/Footer';
+import Description from './ResponsivePopoverDescription.md';
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ArgsTableWithNote } from '@docs/ArgsTableWithNote';
+import '@ui5/webcomponents-icons/dist/settings.js';
+import { useState } from 'react';
+import { PopoverHorizontalAlign } from '../../enums/PopoverHorizontalAlign';
+import { PopoverPlacementType } from '../../enums/PopoverPlacementType';
+import { PopoverVerticalAlign } from '../../enums/PopoverVerticalAlign';
+import { Bar } from '../Bar';
+import { Button } from '../Button';
+import { Icon } from '../Icon';
+import { Label } from '../Label';
+import { List } from '../List';
+import { StandardListItem } from '../StandardListItem';
+import { Title } from '../Title';
+import { ResponsivePopover } from './index';
+import { isChromatic } from '../../../../../.storybook/utils';
+import ResponsivePopoverMethods from './ResponsivePopoverMethods.md';
+
+<Meta
+  title="Modals & Popovers / ResponsivePopover"
+  component={ResponsivePopover}
+  argTypes={{
+    footer: { control: { disable: true } },
+    header: { control: { disable: true } }
+  }}
+  args={{
+    children: (
+      <Label>
+        Press "Esc", click outside or in mobile-mode press the "x" in the corner to close the ResponsivePopover.
+      </Label>
+    ),
+    headerText: 'ResponsivePopover Header',
+    horizontalAlign: PopoverHorizontalAlign.Center,
+    placementType: PopoverPlacementType.Right,
+    verticalAlign: PopoverVerticalAlign.Center,
+    opener: 'openPopoverBtn'
+  }}
+/>
+
+<DocsHeader since="0.9.0" />
+
+<br />
+
+## Example
+
+<Canvas>
+  <Story name="Default">
+    {(args) => {
+      const [responsivePopoverIsOpen, setResponsivePopoverIsOpen] = useState(isChromatic || args.open);
+      return (
+        <>
+          <Button
+            id={'openResponsivePopoverBtn'}
+            onClick={() => {
+              setResponsivePopoverIsOpen(true);
+            }}
+          >
+            Open Popover
+          </Button>
+          <ResponsivePopover
+            {...args}
+            onAfterClose={() => {
+              setResponsivePopoverIsOpen(false);
+            }}
+            opener="openResponsivePopoverBtn"
+            open={responsivePopoverIsOpen}
+          />
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
+
+## Properties
+
+<ArgsTableWithNote story="." />
+
+<Description />
+
+<ResponsivePopoverMethods />
+
+## Opening ResponsivePopovers
+
+<br />
+
+#### since 0.22.0
+
+We recommend opening and closing the `ResponsivePopover` component in a declarative way using the `open` and `opener` prop.
+You can still use the imperative way which is outlined below.
+
+```jsx
+const MyComponentWithPopover = () => {
+  const [popoverIsOpen, setPopoverIsOpen] = useState(false);
+  return (
+    <>
+      <Button
+        id={'openPopoverBtn'}
+        onClick={() => {
+          setPopoverIsOpen(true);
+        }}
+      >
+        Open Popover
+      </Button>
+      <ResponsivePopover
+        opener={'openPopoverBtn'}
+        open={popoverIsOpen}
+        onAfterClose={() => {
+          setResponsivePopoverIsOpen(false);
+        }}
+      />
+    </>
+  );
+};
+```
+
+#### before 0.22.0
+
+`ResponsivePopovers` can only be opened by attaching a `ref` to the component and then call the corresponding **`showAt`** method. The method receives the target element - _on which the `ResponsivePopover` is to be opened_ - as parameter.
+
+```jsx
+  const PopoverComponent = () => {
+    const popoverRef = useRef(null);
+    const onButtonClick = (e) => {
+        popoverRef.current.showAt(e.target);
+    };
+    return (
+      <>
+        <Button onClick={onButtonClick}>Open Popover</Button>
+        <ResponsivePopover ref={popoverRef}>Some Content</ResponsivePopovers>
+      </>
+    );
+  };
+```
+
+## Using ResponsivePopovers inside other components
+
+`ResponsivePopovers` are often used within other components, when opened this could sometimes have unwanted side effects.
+In this case, we recommend using [createPortal](https://reactjs.org/docs/portals.html) to mount the `ResponsivePopover` outside of the DOM hierarchy of the parent component.
+
+```jsx
+const PopoverComponent = () => {
+  const popoverRef = useRef(null);
+  const onButtonClick = (e) => {
+    popoverRef.current.showAt(e.target);
+  };
+  return (
+    <>
+      <Button onClick={onButtonClick}>Open Popover</Button>
+      {createPortal(<ResponsivePopovers ref={popoverRef} />, document.body)}
+    </>
+  );
+};
+```
+
+## Closing ResponsivePopovers
+
+Closing `ResponsivePopovers` works in the same way as opening them.
+You can either set the `open` prop to `false` or attaching a `ref` on which the corresponding `close` method is called.
+
+```jsx
+const PopoverComponent = () => {
+  const popoverRef = useRef(null);
+  const handleOpen = (e) => {
+    popoverRef.current.showAt(e.target);
+  };
+  const handleClose = () => {
+    popoverRef.current.close();
+  };
+  return (
+    <>
+      <Button onClick={handleOpen}>Open Popover</Button>
+      <ResponsivePopovers ref={popoverRef}>
+        <Button onClick={handleClose}>Close Popover</Button>
+      </ResponsivePopovers>
+    </>
+  );
+};
+```
+
+# More Examples
+
+## ResponsivePopover with content
+
+<Canvas>
+  <Story name="with content">
+    {(args) => {
+      const [responsivePopoverIsOpen, setResponsivePopoverIsOpen] = useState(false);
+      const onButtonClick = () => {
+        setResponsivePopoverIsOpen(true);
+      };
+      const handleClose = () => {
+        setResponsivePopoverIsOpen(false);
+      };
+      return (
+        <>
+          <Button id="respPopoverBtn2" onClick={onButtonClick}>
+            Open Responsive Popover
+          </Button>
+          <ResponsivePopover
+            {...args}
+            opener="respPopoverBtn2"
+            open={responsivePopoverIsOpen}
+            onAfterClose={handleClose}
+            header={
+              <Bar endContent={<Icon name="settings" />}>
+                <Title>Popover</Title>
+              </Bar>
+            }
+            footer={<Bar endContent={<Button onClick={handleClose}>Close</Button>} />}
+          >
+            <List style={{ width: '200px' }}>
+              <StandardListItem additionalText="3">List Item 1</StandardListItem>
+              <StandardListItem additionalText="2">List Item 2</StandardListItem>
+              <StandardListItem additionalText="1">List Item 3</StandardListItem>
+            </List>
+          </ResponsivePopover>
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Footer />

@@ -1,0 +1,38 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ArgsTableWithNote } from '@docs/ArgsTableWithNote';
+import { ProgressIndicator } from './index';
+import { ValueState } from '../../enums/ValueState';
+import { DocsHeader } from '@docs/DocsHeader';
+import { Footer } from '@docs/Footer';
+import Description from './ProgressIndicatorDescription.md';
+
+<Meta
+  title="Data Display / ProgressIndicator"
+  component={ProgressIndicator}
+  args={{
+    valueState: ValueState.None,
+    value: 50
+  }}
+/>
+
+<DocsHeader since="0.10.0" />
+
+<br />
+
+## Example
+
+<Canvas>
+  <Story name="Default">
+    {(args) => {
+      return <ProgressIndicator {...args} />;
+    }}
+  </Story>
+</Canvas>
+
+## Properties
+
+<ArgsTableWithNote story="." />
+
+<Description />
+
+<Footer />

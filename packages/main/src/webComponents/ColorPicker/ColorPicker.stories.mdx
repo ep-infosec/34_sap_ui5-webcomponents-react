@@ -1,0 +1,30 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ArgsTableWithNote } from '@docs/ArgsTableWithNote';
+import { ColorPicker } from './index';
+import { DocsHeader } from '@docs/DocsHeader';
+import { Footer } from '@docs/Footer';
+import Description from './ColorPickerDescription.md';
+
+<Meta title="Inputs / ColorPicker" component={ColorPicker} />
+
+<DocsHeader since="0.14.0" />
+
+<br />
+
+## Example
+
+<Canvas>
+  <Story name="Default">
+    {(args) => {
+      return <ColorPicker {...args} />;
+    }}
+  </Story>
+</Canvas>
+
+## Properties
+
+<ArgsTableWithNote story="." />
+
+<Description />
+
+<Footer />

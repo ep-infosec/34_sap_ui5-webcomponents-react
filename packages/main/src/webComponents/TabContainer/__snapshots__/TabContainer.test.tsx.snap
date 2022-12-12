@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabContainer Basic Test (generated) 1`] = `
+<DocumentFragment>
+  <ui5-tabcontainer
+    data-sap-ui-fastnavgroup="true"
+    tab-layout="Standard"
+    tabs-overflow-mode="End"
+    ui5-tabcontainer=""
+  >
+    <ui5-tab
+      design="Default"
+      text="Tab 1"
+      ui5-tab=""
+    />
+  </ui5-tabcontainer>
+</DocumentFragment>
+`;

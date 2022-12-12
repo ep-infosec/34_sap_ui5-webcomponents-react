@@ -1,0 +1,50 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ArgsTableWithNote } from '@docs/ArgsTableWithNote';
+import { Carousel } from './index';
+import { CarouselArrowsPlacement } from '../../enums/CarouselArrowsPlacement';
+import { DocsHeader } from '@docs/DocsHeader';
+import { Footer } from '@docs/Footer';
+import Description from './CarouselDescription.md';
+import CarouselMethods from './CarouselMethods.md';
+import { Img1, Img2, Img3 } from './CodeGen';
+
+<Meta
+  title="Layouts & Floorplans / Carousel"
+  component={Carousel}
+  argTypes={{
+    children: { control: { disable: true } }
+  }}
+  args={{
+    arrowsPlacement: CarouselArrowsPlacement.Content
+  }}
+/>
+
+<DocsHeader since="0.9.0" />
+
+<br />
+
+## Example
+
+<Canvas>
+  <Story name="Default">
+    {(args) => {
+      return (
+        <Carousel {...args}>
+          {Img1}
+          {Img2}
+          {Img3}
+        </Carousel>
+      );
+    }}
+  </Story>
+</Canvas>
+
+## Properties
+
+<ArgsTableWithNote story="." />
+
+<Description />
+
+<CarouselMethods />
+
+<Footer />

@@ -1,0 +1,80 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ArgsTableWithNote } from '@docs/ArgsTableWithNote';
+import { {{name}} } from './index';
+{{#each imports}}
+{{{this}}}
+{{/each}}
+import { DocsHeader } from '@docs/DocsHeader';
+import { Footer } from '@docs/Footer';
+{{#if hasDescription}}
+import Description from './{{name}}Description.md';
+{{/if}}
+{{#if additionalComponentDocs}}
+import SubcomponentsSection from '../../../../../.storybook/docs/SubcomponentsSection.md';
+{{#each additionalComponentDocs}}
+import {{this}}Description from '../{{this}}/{{this}}Description.md';
+{{/each}}
+{{/if}}
+{{#if methods}}
+import {{name}}Methods from './{{name}}Methods.md';
+{{/if}}
+
+<Meta
+  title="Components / {{name}}"
+  component={ {{{name}}} }
+  {{#if additionalComponentDocs}}
+  subcomponents={{storySubComponents additionalComponentDocs}}
+  {{/if}}
+  argTypes=\{{
+    {{#each customArgTypes}}
+    {{{this}}}{{#unless @last}},{{/unless}}
+    {{/each}}
+  }}
+  args=\{{
+    {{#each args}}
+    {{{this}}}{{#unless @last}},{{/unless}}
+    {{/each}}
+  }}
+/>
+
+<DocsHeader {{#if since}}since="{{since}}"{{/if}}/>
+
+<br/>
+
+## Example
+
+<Canvas>
+    <Story name="Default">
+        {(args) => {
+          return (
+            <{{name}} {...args} />
+          );
+        }}
+    </Story>
+</Canvas>
+
+## Properties
+
+<ArgsTableWithNote story="."/>
+
+{{#if hasDescription}}
+<Description />
+{{/if}}
+
+{{#if methods}}
+<{{name}}Methods />
+{{/if}}
+
+{{#if additionalComponentDocs}}
+
+<SubcomponentsSection />
+
+{{#each additionalComponentDocs}}
+## {{this}}
+
+<{{this}}Description />
+
+{{/each}}
+{{/if}}
+
+<Footer />

@@ -1,0 +1,38 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ArgsTableWithNote } from '@docs/ArgsTableWithNote';
+import { Title } from './index';
+import { TitleLevel } from '../../enums/TitleLevel';
+import { DocsHeader } from '@docs/DocsHeader';
+import { Footer } from '@docs/Footer';
+
+<Meta
+  title="Data Display / Title"
+  component={Title}
+  argTypes={{
+    children: { control: 'text' }
+  }}
+  args={{
+    level: TitleLevel.H2,
+    children: 'Title Text'
+  }}
+/>
+
+<DocsHeader />
+
+<br />
+
+## Example
+
+<Canvas>
+  <Story name="Default">
+    {(args) => {
+      return <Title {...args} />;
+    }}
+  </Story>
+</Canvas>
+
+## Properties
+
+<ArgsTableWithNote story="." />
+
+<Footer />

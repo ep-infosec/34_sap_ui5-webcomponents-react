@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.base.json",
+  "references": [
+    {
+      "path": "./packages/base"
+    },
+    {
+      "path": "./packages/main"
+    },
+    {
+      "path": "./packages/main/tsconfig.wrappers.json"
+    },
+    {
+      "path": "./packages/charts"
+    }
+  ],
+  "files": []
+}
